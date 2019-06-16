@@ -19,7 +19,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
 
     public function __construct(array $response)
     {
-        $this->response = $response[0];
+        $this->response = $response['data'][0];
 
         $this->id = $this->response['id'];
         $this->login = $this->response['login'];
