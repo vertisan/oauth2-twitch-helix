@@ -93,8 +93,7 @@ class TwitchHelix extends AbstractProvider
     protected function getDefaultHeaders()
     {
         return [
-            'Client-ID' => $this->clientId,
-            'Accept' => 'application/vnd.twitchtv.v5+json'
+            'Client-ID' => $this->clientId
         ];
     }
 
