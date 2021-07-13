@@ -2,35 +2,27 @@
 namespace Vertisan\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 
 class TwitchHelixResourceOwner implements ResourceOwnerInterface
 {
-    private $response;
-    private $login;
-    private $id;
-    private $displayName;
-    private $broadcasterType;
-    private $description;
-    private $profileImageUrl;
-    private $offlineImageUrl;
-    private $viewCount;
-    private $email;
-    private $type;
+    use ArrayAccessorTrait;
 
+    /**
+     * Raw response
+     *
+     * @var array
+     */
+    protected $response;
+
+    /**
+     * Creates new resource owner.
+     *
+     * @param array  $response
+     */
     public function __construct(array $response)
     {
         $this->response = $response['data'][0];
-
-        $this->id = $this->response['id'];
-        $this->login = $this->response['login'];
-        $this->displayName = $this->response['display_name'];
-        $this->broadcasterType = $this->response['broadcaster_type'];
-        $this->description = $this->response['description'];
-        $this->profileImageUrl = $this->response['profile_image_url'];
-        $this->offlineImageUrl = $this->response['offline_image_url'];
-        $this->viewCount = $this->response['view_count'];
-        $this->email = $this->response['email'];
-        $this->type = $this->response['type'];
     }
 
     /**
@@ -40,7 +32,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getId()
     {
-        return (int) $this->id;
+        return (int) $this->getValueByKey($this->response, 'id');
     }
 
     /**
@@ -50,7 +42,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getLogin()
     {
-        return $this->login;
+        return $this->getValueByKey($this->response, 'login');
     }
 
     /**
@@ -60,7 +52,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getDisplayName()
     {
-        return $this->displayName;
+        return $this->getValueByKey($this->response, 'display_name');
     }
 
     /**
@@ -70,7 +62,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getBroadcasterType()
     {
-        return $this->broadcasterType;
+        return $this->getValueByKey($this->response, 'broadcaster_type');
     }
 
     /**
@@ -80,7 +72,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->getValueByKey($this->response, 'description');
     }
 
     /**
@@ -90,7 +82,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getProfileImageUrl()
     {
-        return $this->profileImageUrl;
+        return $this->getValueByKey($this->response, 'profile_image_url');
     }
 
     /**
@@ -100,7 +92,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getOfflineImageUrl()
     {
-        return $this->offlineImageUrl;
+        return $this->getValueByKey($this->response, 'offline_image_url');
     }
 
     /**
@@ -110,7 +102,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getViewCount()
     {
-        return (int) $this->viewCount;
+        return (int) $this->getValueByKey($this->response, 'view_count');
     }
 
     /**
@@ -120,7 +112,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->getValueByKey($this->response, 'email');
     }
 
     /**
@@ -130,7 +122,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      */
     public function getType()
     {
-        return $this->type;
+        return $this->getValueByKey($this->response, 'type');
     }
 
     /**
