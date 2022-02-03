@@ -8,7 +8,7 @@ This package provides Twitch (new version Helix) OAuth 2.0 support for the PHP L
 
 ## Installation
 
-To install, use composer:
+To install, use Composer:
 
 ```
 composer require vertisan/oauth2-twitch-helix
@@ -22,7 +22,7 @@ Usage is the same as The League's OAuth client, using `Vertisan\OAuth2\Client\Pr
 $provider = new \Vertisan\OAuth2\Client\Provider\TwitchHelix([
     'clientId' => "YOUR_CLIENT_ID",
     'clientSecret' => "YOUR_CLIENT_SECRET",
-    'redirectUri' => "http://your-redirect-uri-passed-in-twitch-dashboard"
+    'redirectUri' => "http://your-redirect-uri-passed-in-twitch-dashboard",
 ]);
 ```
 You can also optionally add a `scopes` key to the array passed to the constructor. The available scopes are documented
