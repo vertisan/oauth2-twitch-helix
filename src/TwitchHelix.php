@@ -37,7 +37,7 @@ class TwitchHelix extends AbstractProvider
         parent::__construct($options);
     }
 
-    protected function getConfigurableOptions()
+    protected function getConfigurableOptions(): array
     {
         return [
             'accessTokenMethod',
@@ -50,27 +50,27 @@ class TwitchHelix extends AbstractProvider
         ];
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain . self::PATH_AUTHORIZE;
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain . self::PATH_TOKEN;
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->resourceDomain . self::USER_RESOURCE;
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return $this->scopes;
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return self::SCOPE_SEPARATOR;
     }
@@ -85,19 +85,19 @@ class TwitchHelix extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): TwitchHelixResourceOwner
     {
         return new TwitchHelixResourceOwner($response);
     }
 
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return [
             'Client-ID' => $this->clientId
         ];
     }
 
-    protected function getAuthorizationHeaders($token = null)
+    protected function getAuthorizationHeaders($token = null): array
     {
         if ($token === null) {
             return [];
