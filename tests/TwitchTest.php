@@ -6,6 +6,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use PHPUnit\Framework\TestCase;
 use Mockery as m;
+use Psr\Http\Message\StreamInterface;
 use Vertisan\OAuth2\Client\Provider\TwitchHelix;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientInterface;
@@ -81,15 +82,22 @@ class TwitchTest extends TestCase
      */
     public function testGetAccessToken()
     {
-        $response = m::mock(ResponseInterface::class);
-        $response->shouldReceive('getBody')
+        $stream = m::mock(StreamInterface::class);
+        $stream->shouldReceive('__toString')
             ->andReturn(json_encode([
                 'access_token' => 'mock_access_token',
                 'token_type' => 'bearer',
                 'expires_in' => 1000,
                 'refresh_token' => 'mock_refresh_token',
-            ]))
-        ;
+            ]));
+
+        $response = m::mock(ResponseInterface::class);
+        $response->shouldReceive('getBody')
+            ->andReturn($stream);
+
+        $response = m::mock(ResponseInterface::class);
+        $response->shouldReceive('getBody')
+            ->andReturn($stream);
 
         $response->shouldReceive('getHeader')
             ->andReturn(['content-type' => 'json']);

@@ -30,7 +30,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return (int) $this->getValueByKey($this->response, 'id');
     }
