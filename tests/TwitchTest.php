@@ -15,7 +15,7 @@ class TwitchTest extends TestCase
 
     protected $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = new TwitchHelix([
             'clientId' => 'mock_client_id',
@@ -24,7 +24,7 @@ class TwitchTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
         parent::tearDown();

@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=7.1",
         "league/oauth2-client": "^2.2.1"
     },
     "require-dev": {
