@@ -75,7 +75,7 @@ class TwitchHelix extends AbstractProvider
         return self::SCOPE_SEPARATOR;
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data[$this->responseError])) {
             $error = $data[$this->responseError];

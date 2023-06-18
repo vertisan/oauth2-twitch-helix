@@ -1,6 +1,7 @@
 <?php
 namespace Vertisan\OAuth2\Client\Test\Provider;
 
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +50,7 @@ class TwitchTest extends TestCase
         $options = ['scope' => [uniqid('', true), uniqid('', true)]];
         $query = ['scope' => implode(TwitchHelix::SCOPE_SEPARATOR, $options['scope'])];
         $url = $this->provider->getAuthorizationUrl($options);
-        $this->assertContains($this->buildQueryString($query), $url);
+        $this->assertStringContainsString($this->buildQueryString($query), $url);
     }
 
     public function testGetAuthorizationUrl()
@@ -75,6 +76,9 @@ class TwitchTest extends TestCase
         $this->assertEquals(TwitchHelix::USER_RESOURCE, $uri['path']);
     }
 
+    /**
+     * @throws IdentityProviderException
+     */
     public function testGetAccessToken()
     {
         $response = m::mock(ResponseInterface::class);
