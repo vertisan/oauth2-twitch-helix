@@ -1,10 +1,12 @@
 <?php
 namespace Vertisan\OAuth2\Client\Test\Provider;
 
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use PHPUnit\Framework\TestCase;
 use Mockery as m;
+use Psr\Http\Message\StreamInterface;
 use Vertisan\OAuth2\Client\Provider\TwitchHelix;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientInterface;
@@ -15,7 +17,7 @@ class TwitchTest extends TestCase
 
     protected $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = new TwitchHelix([
             'clientId' => 'mock_client_id',
@@ -24,7 +26,7 @@ class TwitchTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
         parent::tearDown();
@@ -49,7 +51,7 @@ class TwitchTest extends TestCase
         $options = ['scope' => [uniqid('', true), uniqid('', true)]];
         $query = ['scope' => implode(TwitchHelix::SCOPE_SEPARATOR, $options['scope'])];
         $url = $this->provider->getAuthorizationUrl($options);
-        $this->assertContains($this->buildQueryString($query), $url);
+        $this->assertStringContainsString($this->buildQueryString($query), $url);
     }
 
     public function testGetAuthorizationUrl()
@@ -75,17 +77,27 @@ class TwitchTest extends TestCase
         $this->assertEquals(TwitchHelix::USER_RESOURCE, $uri['path']);
     }
 
+    /**
+     * @throws IdentityProviderException
+     */
     public function testGetAccessToken()
     {
-        $response = m::mock(ResponseInterface::class);
-        $response->shouldReceive('getBody')
+        $stream = m::mock(StreamInterface::class);
+        $stream->shouldReceive('__toString')
             ->andReturn(json_encode([
                 'access_token' => 'mock_access_token',
                 'token_type' => 'bearer',
                 'expires_in' => 1000,
                 'refresh_token' => 'mock_refresh_token',
-            ]))
-        ;
+            ]));
+
+        $response = m::mock(ResponseInterface::class);
+        $response->shouldReceive('getBody')
+            ->andReturn($stream);
+
+        $response = m::mock(ResponseInterface::class);
+        $response->shouldReceive('getBody')
+            ->andReturn($stream);
 
         $response->shouldReceive('getHeader')
             ->andReturn(['content-type' => 'json']);

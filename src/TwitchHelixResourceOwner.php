@@ -30,7 +30,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return (int) $this->getValueByKey($this->response, 'id');
     }
@@ -40,7 +40,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLogin()
+    public function getLogin(): string
     {
         return $this->getValueByKey($this->response, 'login');
     }
@@ -50,7 +50,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->getValueByKey($this->response, 'display_name');
     }
@@ -60,7 +60,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getBroadcasterType()
+    public function getBroadcasterType(): string
     {
         return $this->getValueByKey($this->response, 'broadcaster_type');
     }
@@ -70,7 +70,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->getValueByKey($this->response, 'description');
     }
@@ -80,7 +80,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getProfileImageUrl()
+    public function getProfileImageUrl(): string
     {
         return $this->getValueByKey($this->response, 'profile_image_url');
     }
@@ -90,7 +90,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getOfflineImageUrl()
+    public function getOfflineImageUrl(): string
     {
         return $this->getValueByKey($this->response, 'offline_image_url');
     }
@@ -100,7 +100,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return int
      */
-    public function getViewCount()
+    public function getViewCount(): int
     {
         return (int) $this->getValueByKey($this->response, 'view_count');
     }
@@ -110,7 +110,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -120,7 +120,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->getValueByKey($this->response, 'type');
     }
@@ -130,7 +130,7 @@ class TwitchHelixResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
